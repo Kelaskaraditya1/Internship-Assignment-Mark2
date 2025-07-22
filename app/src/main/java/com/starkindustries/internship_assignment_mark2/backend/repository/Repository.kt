@@ -7,6 +7,8 @@ import com.starkindustries.internship_assignment_mark2.backend.data.CuisineRespo
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartSummary
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.FilterRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.GetItemList
+import com.starkindustries.internship_assignment_mark2.backend.dto.request.ItemRequest
+import com.starkindustries.internship_assignment_mark2.backend.dto.response.ItemDetailsResponse
 import com.starkindustries.internship_assignment_mark2.backend.dto.response.OrderResponse
 import com.starkindustries.internship_assignment_mark2.backend.instance.ApiInstance
 import kotlinx.coroutines.CoroutineScope
@@ -98,6 +100,31 @@ open class Repository{
                 }
             }
 
+        }
+
+        fun getItemByID(itemRequest: ItemRequest,apiKey:String,proxyAction:String,result:(ItemDetailsResponse)->Unit){
+
+            CoroutineScope(Dispatchers.IO).launch {
+                try{
+
+                    var response = ApiInstance.api.getItemByID(
+                        itemRequest = itemRequest,
+                        apiKey = apiKey,
+                        proxyAction = proxyAction
+                    )
+
+                    if(response.isSuccessful){
+                        response.body()?.let {
+                            result(it)
+                        }
+                    }else
+                        Log.d("RESPONSE_ERROR",response.errorBody().toString())
+
+                }catch (e: Exception){
+                    e.printStackTrace()
+                    Log.d("EXCEPTION", e.localizedMessage.toString())
+                }
+            }
         }
 
     }

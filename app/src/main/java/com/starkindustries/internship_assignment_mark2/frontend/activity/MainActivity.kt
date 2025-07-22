@@ -11,6 +11,7 @@ import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartI
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartSummary
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.FilterRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.GetItemList
+import com.starkindustries.internship_assignment_mark2.backend.dto.request.ItemRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.PriceRange
 import com.starkindustries.internship_assignment_mark2.backend.repository.Repository
 import java.util.logging.Filter
@@ -61,21 +62,36 @@ class MainActivity : AppCompatActivity() {
 
             // payment Api-Call
 
-            val cartItem1 = CartItem(32453, 15234, 200, 1)
-            val cartItem2 = CartItem(32453, 15234, 50, 4)
+//            val cartItem1 = CartItem(32453, 15234, 200, 1)
+//            val cartItem2 = CartItem(32453, 15234, 50, 4)
+//
+//            val request = CartSummary(
+//                total_amount = "1000",
+//                total_items = 5,
+//                data = listOf(cartItem1, cartItem2)
+//            )
+//
+//            Repository.payment(
+//                cartSummary = request,
+//                apiKey=apiKey,
+//                proxyAction = "make_payment"
+//            ) {
+//                Log.d("RESPONSE",it.toString())
+//            }
 
-            val request = CartSummary(
-                total_amount = "1000",
-                total_items = 5,
-                data = listOf(cartItem1, cartItem2)
+            // get Item By Id Api-Call
+
+            var itemRequest = ItemRequest(
+                item_id = 34234234
             )
 
-            Repository.payment(
-                cartSummary = request,
-                apiKey=apiKey,
-                proxyAction = "make_payment"
-            ) {
+            Repository.getItemByID(
+                itemRequest = itemRequest,
+                apiKey = apiKey,
+                proxyAction = "get_item_by_id"){
+
                 Log.d("RESPONSE",it.toString())
+
             }
 
 

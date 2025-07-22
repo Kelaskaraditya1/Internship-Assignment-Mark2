@@ -5,7 +5,9 @@ import com.starkindustries.internship_assignment_mark2.backend.data.CuisineRespo
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartSummary
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.FilterRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.GetItemList
+import com.starkindustries.internship_assignment_mark2.backend.dto.request.ItemRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.response.ItemByFilterResponse
+import com.starkindustries.internship_assignment_mark2.backend.dto.response.ItemDetailsResponse
 import com.starkindustries.internship_assignment_mark2.backend.dto.response.OrderResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -30,6 +32,12 @@ interface ItemApi {
         @Body cartSummary: CartSummary
         ,@Header("X-Partner-API-Key") apiKey:String
         ,@Header("X-Forward-Proxy-Action") proxyAction:String): Response<OrderResponse>
+
+    @POST("/emulator/interview/get_item_by_id")
+    suspend fun getItemByID(
+        @Body itemRequest: ItemRequest
+        ,@Header("X-Partner-API-Key") apiKey:String
+        ,@Header("X-Forward-Proxy-Action") proxyAction:String): Response<ItemDetailsResponse>
 
 
 

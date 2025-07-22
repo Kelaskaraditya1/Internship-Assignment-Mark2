@@ -30,3 +30,7 @@ data class PriceRange(
     val max_amount: Int,
     val min_amount: Int
 )
+
+data class ItemRequest(
+    val item_id: Int
+)
