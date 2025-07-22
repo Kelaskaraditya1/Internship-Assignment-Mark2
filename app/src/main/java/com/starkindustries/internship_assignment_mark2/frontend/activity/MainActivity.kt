@@ -1,10 +1,11 @@
-package com.starkindustries.internship_assignment_mark2
+package com.starkindustries.internship_assignment_mark2.frontend.activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.starkindustries.internship_assignment_mark2.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
