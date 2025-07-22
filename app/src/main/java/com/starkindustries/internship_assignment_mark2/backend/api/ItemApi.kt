@@ -2,9 +2,11 @@ package com.starkindustries.internship_assignment_mark2.backend.api
 
 import com.starkindustries.internship_assignment_mark2.backend.data.Cuisine
 import com.starkindustries.internship_assignment_mark2.backend.data.CuisineResponse
+import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartSummary
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.FilterRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.GetItemList
 import com.starkindustries.internship_assignment_mark2.backend.dto.response.ItemByFilterResponse
+import com.starkindustries.internship_assignment_mark2.backend.dto.response.OrderResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
@@ -22,6 +24,14 @@ interface ItemApi {
     suspend fun getItemByFilter(@Header("X-Partner-API-Key") apiKey:String,
                                 @Header("X-Forward-Proxy-Action") proxyAction:String,
                                 @Body filterRequest: FilterRequest): Response<ItemByFilterResponse>
+
+    @POST("/emulator/interview/make_payment")
+    suspend fun payment(
+        @Body cartSummary: CartSummary
+        ,@Header("X-Partner-API-Key") apiKey:String
+        ,@Header("X-Forward-Proxy-Action") proxyAction:String): Response<OrderResponse>
+
+
 
 
 }

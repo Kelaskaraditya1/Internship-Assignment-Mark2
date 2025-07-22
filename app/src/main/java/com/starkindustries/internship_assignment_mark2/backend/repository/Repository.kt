@@ -4,8 +4,10 @@ import android.util.Log
 import com.starkindustries.internship_assignment_mark2.backend.api.ItemApi
 import com.starkindustries.internship_assignment_mark2.backend.data.Cuisine
 import com.starkindustries.internship_assignment_mark2.backend.data.CuisineResponse
+import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartSummary
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.FilterRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.GetItemList
+import com.starkindustries.internship_assignment_mark2.backend.dto.response.OrderResponse
 import com.starkindustries.internship_assignment_mark2.backend.instance.ApiInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -64,6 +66,35 @@ open class Repository{
                 }catch (e: Exception){
                     e.printStackTrace()
                     Log.d("EXCEPTION", e.localizedMessage.toString())
+                }
+            }
+
+        }
+
+        fun payment(cartSummary: CartSummary,apiKey:String,proxyAction:String,result:(OrderResponse)->Unit){
+
+            CoroutineScope(Dispatchers.IO).launch {
+
+                try{
+
+                    var response = ApiInstance.api.payment(
+                        cartSummary = cartSummary,
+                        apiKey = apiKey,
+                        proxyAction = proxyAction
+                    )
+
+                    if(response.isSuccessful){
+                        response?.let {
+                            result(it.body()!!)
+                        }
+                        Log.d("RESPONSE_SUCCESS","Response Successful")
+                    }else
+                        Log.d("RESPONSE_ERROR",response.errorBody().toString())
+
+                }catch (e: Exception){
+                    e.printStackTrace()
+                    Log.d("EXCEPTION", e.localizedMessage.toString())
+
                 }
             }
 

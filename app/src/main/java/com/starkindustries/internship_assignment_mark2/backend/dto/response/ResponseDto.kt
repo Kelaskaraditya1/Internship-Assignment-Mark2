@@ -11,3 +11,10 @@ data class ItemByFilterResponse(
     val timestamp: String,
     val timetaken: String
 )
+
+data class OrderResponse(
+    val response_code: Int,
+    val outcome_code: Int,
+    val response_message: String,
+    val txn_ref_no: String
+)

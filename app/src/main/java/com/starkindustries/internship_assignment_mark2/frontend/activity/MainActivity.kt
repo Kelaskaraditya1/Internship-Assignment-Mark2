@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.starkindustries.internship_assignment_mark2.R
+import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartItem
+import com.starkindustries.internship_assignment_mark2.backend.dto.request.CartSummary
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.FilterRequest
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.GetItemList
 import com.starkindustries.internship_assignment_mark2.backend.dto.request.PriceRange
@@ -40,19 +42,38 @@ class MainActivity : AppCompatActivity() {
 
             // get Item By Filter Api - Call
 
-            var filterRequest = FilterRequest(
-                cuisine_type = listOf("Chinese","North Indian"),
-                min_rating = 4,
-                price_range = PriceRange(
-                    max_amount = 500,
-                    min_amount = 100
-                )
+//            var filterRequest = FilterRequest(
+//                cuisine_type = listOf("Chinese","North Indian"),
+//                min_rating = 4,
+//                price_range = PriceRange(
+//                    max_amount = 500,
+//                    min_amount = 100
+//                )
+//            )
+//
+//            Repository.getItemByFilter(
+//                filterRequest = filterRequest,
+//                apiKey = apiKey,
+//                proxyAction = "get_item_by_filter"
+//            ) {
+//                Log.d("RESPONSE",it.toString())
+//            }
+
+            // payment Api-Call
+
+            val cartItem1 = CartItem(32453, 15234, 200, 1)
+            val cartItem2 = CartItem(32453, 15234, 50, 4)
+
+            val request = CartSummary(
+                total_amount = "1000",
+                total_items = 5,
+                data = listOf(cartItem1, cartItem2)
             )
 
-            Repository.getItemByFilter(
-                filterRequest = filterRequest,
-                apiKey = apiKey,
-                proxyAction = "get_item_by_filter"
+            Repository.payment(
+                cartSummary = request,
+                apiKey=apiKey,
+                proxyAction = "make_payment"
             ) {
                 Log.d("RESPONSE",it.toString())
             }
